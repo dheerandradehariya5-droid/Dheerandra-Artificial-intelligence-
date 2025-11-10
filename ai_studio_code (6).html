@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering कोर्स – अध्याय 1: Prompt क्या है और क्यों ज़रूरी है</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue */
+            --secondary-color: #3498db; /* Bright Blue */
+            --accent-color: #e74c3c; /* Red */
+            --text-color: #333;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --chapter-color: #8e44ad; /* Purple for chapters */
+            --section-color: #27ae60; /* Green for sections */
+            --example-bg: #ecf0f1;
+            --code-bg: #f8f8f8;
+            --key-color: #f39c12; /* Orange for key */
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--chapter-color); /* Purple for chapters */
+            border-bottom: 3px solid var(--chapter-color);
+            padding-bottom: 10px;
+            position: relative;
+            padding-left: 40px;
+            margin-top: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        h2::before {
+            content: '📘'; /* Book icon */
+            position: absolute;
+            left: 0;
+            color: var(--chapter-color);
+            font-size: 1.5em;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: var(--section-color); /* Green for sections */
+            margin-top: 2em;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        h3::before {
+            content: '🌟'; /* Star icon */
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 1em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        h4 {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            position: relative;
+            padding-left: 20px;
+        }
+        h4::before {
+            content: '💬';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        p {
+            margin-bottom: 1em;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        blockquote {
+            background-color: var(--example-bg); /* Light Gray */
+            border-left: 5px solid var(--secondary-color);
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            font-style: italic;
+            color: var(--primary-color);
+            border-radius: 5px;
+            font-size: 1.15em;
+            position: relative;
+        }
+        blockquote::before {
+            content: '💡';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5em;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+        }
+
+        ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            top: 0.1em;
+        }
+        
+        strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .highlight {
+            background-color: #ffedcc; /* Light Orange */
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .example-code-box {
+            background-color: var(--code-bg); /* Light Gray for code */
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.2em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1em;
+            color: var(--primary-color);
+            overflow-x: auto; /* For wider code on small screens */
+        }
+
+        .callout-box {
+            background-color: #ffe0b2; /* Lighter orange */
+            border-left: 5px solid var(--key-color);
+            padding: 1.2em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            font-weight: 600;
+            position: relative;
+        }
+        .callout-box::before {
+            content: '🔑';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+
+        .note {
+            background-color: #fce4ec; /* Light Pink */
+            border-left: 4px solid #e91e63;
+            padding: 1em;
+            margin-top: 2em;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ad1457;
+            font-size: 1.05em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 1em;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+        ol li {
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+                padding-left: 30px;
+            }
+            h2::before {
+                font-size: 1.2em;
+            }
+            h3 {
+                font-size: 1.3em;
+                padding-left: 20px;
+            }
+            p, ul li, blockquote, .example-code-box, table, ol li {
+                font-size: 1em;
+            }
+            blockquote::before, .callout-box::before {
+                left: -15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            h3 {
+                font-size: 1.1em;
+            }
+            p, ul li, blockquote, .example-code-box, table, ol li {
+                font-size: 0.95em;
+            }
+            table th, table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📘 अध्याय 1 : Prompt क्या है और क्यों ज़रूरी है (विस्तार से)</h1>
+
+        <!-- Section 1: Prompt का मतलब क्या होता है? -->
+        <section id="prompt-meaning">
+            <h3>🌟 1. Prompt का मतलब क्या होता है?</h3>
+            <p>Prompt (प्रॉम्प्ट) का मतलब है —</p>
+            <blockquote>
+                “वह निर्देश या सवाल जो आप किसी AI (जैसे ChatGPT, Gemini, Claude आदि) को देते हैं ताकि वह आपके अनुसार जवाब दे।”
+            </blockquote>
+            <p>सीधी भाषा में —</p>
+            <p>👉 Prompt वही होता है जो आप AI से कहते हैं।</p>
+            <p>👉 और जो जवाब AI देता है, वह Output कहलाता है।</p>
+
+            <h4>🔹 उदाहरण 1:</h4>
+            <p>आप कहते हैं:</p>
+            <div class="example-code-box">
+                “एक छोटी हिंदी कहानी लिखो जिसमें एक किसान और उसका बेटा हो।”
+            </div>
+            <p>यह आपका <span class="highlight">Prompt</span> है। अब AI उस पर कहानी लिखेगा — वही उसका <span class="highlight">Output</span> होगा।</p>
+
+            <h4>🔹 उदाहरण 2:</h4>
+            <p>आप कहते हैं:</p>
+            <div class="example-code-box">
+                “HTML कोड में एक सुंदर कार्ड डिज़ाइन बनाओ।”
+            </div>
+            <p>यह भी एक <span class="highlight">Prompt</span> है। AI अब कोड के रूप में जवाब देगा।</p>
+
+            <div class="callout-box">
+                🪄 तो सरल शब्दों में:<br>
+                “Prompt = आदेश या सवाल”<br>
+                “AI = उसका उत्तर देने वाला सहायक”
+            </div>
+        </section>
+
+        <!-- Section 2: Prompt के प्रकार क्या होते हैं? -->
+        <section id="prompt-types">
+            <h3>💬 2. Prompt के प्रकार क्या होते हैं?</h3>
+            <p>Prompt कई तरह के होते हैं — क्योंकि हम AI से बहुत से काम करा सकते हैं। नीचे कुछ आम प्रकार दिए गए हैं 👇</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>प्रकार</th>
+                        <th>काम</th>
+                        <th>उदाहरण</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>📚 Information Prompt</td>
+                        <td>किसी विषय की जानकारी या व्याख्या लेना</td>
+                        <td>“योग के 5 लाभ बताओ।”</td>
+                    </tr>
+                    <tr>
+                        <td>✍️ Creative Prompt</td>
+                        <td>कहानी, कविता, या लेख बनवाना</td>
+                        <td>“मित्रता पर एक छोटी कविता लिखो।”</td>
+                    </tr>
+                    <tr>
+                        <td>💻 Coding Prompt</td>
+                        <td>कोड लिखवाना या Debug कराना</td>
+                        <td>“HTML में एक नेविगेशन मेनू बनाओ।”</td>
+                    </tr>
+                    <tr>
+                        <td>🎨 Image Prompt</td>
+                        <td>इमेज जनरेट करवाना (AI Art)</td>
+                        <td>“सूर्यास्त के समय पहाड़ों का दृश्य बनाओ।”</td>
+                    </tr>
+                    <tr>
+                        <td>🧩 Learning Prompt</td>
+                        <td>किसी विषय को सिखवाना</td>
+                        <td>“पाइथागोरस प्रमेय को उदाहरण सहित समझाओ।”</td>
+                    </tr>
+                    <tr>
+                        <td>💬 Conversation Prompt</td>
+                        <td>चैट को दिशा देना</td>
+                        <td>“तुम एक मोटिवेशनल कोच हो, मुझे प्रेरित करो।”</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: Prompt क्यों ज़रूरी है? -->
+        <section id="why-prompt-important">
+            <h3>🎯 3. Prompt क्यों ज़रूरी है?</h3>
+            <p>AI बहुत बुद्धिमान है — लेकिन यह तभी सही उत्तर देता है जब आप उसे सही निर्देश देते हैं।</p>
+            <p>अगर आप <span class="highlight">अस्पष्ट Prompt</span> देंगे तो परिणाम भी <span class="highlight">अस्पष्ट</span> मिलेगा।</p>
+            <p>अगर आप <span class="highlight">स्पष्ट और निर्देशित Prompt</span> देंगे, तो परिणाम <span class="highlight">शानदार</span> होगा।</p>
+
+            <h4>📍 उदाहरण से समझें</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>कमजोर Prompt</th>
+                        <th>परिणाम</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>“कविता लिखो।”</td>
+                        <td>कोई भी सामान्य कविता देगा।</td>
+                    </tr>
+                    <tr>
+                        <td>“बारिश पर 4 पंक्तियों की कविता लिखो जिसमें प्रेम का भाव हो।”</td>
+                        <td>अब वह आपकी पसंद के अनुसार कविता लिखेगा।</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                🔸 यानी — Prompt जितना <span class="highlight">स्पष्ट और विस्तृत</span>, Output उतना <span class="highlight">सटीक और उपयोगी</span>।
+            </blockquote>
+        </section>
+
+        <!-- Section 4: Prompt कैसे काम करता है? -->
+        <section id="how-prompt-works">
+            <h3>🧠 4. Prompt कैसे काम करता है?</h3>
+            <p>AI का काम “मानव भाषा को समझना और उसके आधार पर उत्तर देना” है। जब आप एक Prompt लिखते हैं, AI उसे विश्लेषित (analyze) करता है और अपने सीखे हुए ज्ञान से सबसे उपयुक्त उत्तर तैयार करता है।</p>
+            <p>उदाहरण:</p>
+            <div class="example-code-box">
+                “तुम एक शिक्षक हो। सरल भाषा में मुझे प्रकाश के परावर्तन का नियम समझाओ।”
+            </div>
+            <p>AI अब ऐसे व्यवहार करेगा जैसे वह शिक्षक हो, और सरल भाषा में समझाने की कोशिश करेगा।</p>
+            <p>👉 यही है Prompt का असर।</p>
+        </section>
+
+        <!-- Section 5: Prompt के तीन स्तर (Levels of Prompting) -->
+        <section id="prompt-levels">
+            <h3>🧩 5. Prompt के तीन स्तर (Levels of Prompting)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>स्तर</th>
+                        <th>नाम</th>
+                        <th>विशेषता</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🟢 Basic Prompt</td>
+                        <td>केवल साधारण सवाल</td>
+                        <td>“एक कहानी लिखो।”</td>
+                    </tr>
+                    <tr>
+                        <td>🟡 Intermediate Prompt</td>
+                        <td>दिशा और सीमा</td>
+                        <td>“दोस्ती पर 100 शब्दों की कहानी लिखो।”</td>
+                    </tr>
+                    <tr>
+                        <td>🔴 Advanced Prompt</td>
+                        <td>भूमिका + संदर्भ + फॉर्मेट</td>
+                        <td>“तुम एक हिंदी लेखक हो। 12 साल के बच्चे के लिए दोस्ती पर 100 शब्दों की कहानी लिखो, जिसमें नैतिक संदेश हो।”</td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                जितना बेहतर आप निर्देश देंगे, उतना बेहतर परिणाम मिलेगा।
+            </blockquote>
+        </section>
+
+        <!-- Section 6: Prompt बनाते समय ध्यान रखने योग्य बातें -->
+        <section id="prompt-tips">
+            <h3>💡 6. Prompt बनाते समय ध्यान रखने योग्य बातें</h3>
+            <ol>
+                <li>
+                    <strong>स्पष्ट लिखो:</strong>
+                    <ul>
+                        <li>क्या चाहिए, यह साफ़ बताओ।</li>
+                        <li>❌ "एक लेख लिखो"</li>
+                        <li>✅ "स्वास्थ्य पर 500 शब्दों का लेख लिखो जिसमें 3 हेडिंग हों।"</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>AI को भूमिका दो:</strong>
+                    <ul>
+                        <li>“तुम एक डॉक्टर हो / शिक्षक हो / लेखक हो”</li>
+                        <li>इससे AI वैसा व्यवहार करता है।</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>सीमा तय करो:</strong>
+                    <ul>
+                        <li>“200 शब्दों में लिखो” या “टेबल फॉर्मेट में दो”</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>भाषा तय करो:</strong>
+                    <ul>
+                        <li>“सरल हिंदी में” या “हास्यपूर्ण शैली में”</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Section 7: Prompt की शक्ति (Power of Prompting) -->
+        <section id="power-of-prompting">
+            <h3>📘 7. Prompt की शक्ति (Power of Prompting)</h3>
+            <p>एक सही Prompt से आप —</p>
+            <ul>
+                <li>✅ कोड लिखवा सकते हैं</li>
+                <li>✅ ब्लॉग या कविता बनवा सकते हैं</li>
+                <li>✅ रिसर्च पेपर का सारांश पा सकते हैं</li>
+                <li>✅ YouTube स्क्रिप्ट या Caption तैयार कर सकते हैं</li>
+                <li>✅ और यहाँ तक कि AI से नया विचार (Idea) भी निकलवा सकते हैं</li>
+            </ul>
+            <div class="callout-box">
+                यानी Prompt = “AI से बात करने की कुंजी 🔑”
+            </div>
+        </section>
+
+        <!-- Section 8: अभ्यास (Practice Exercise) -->
+        <section id="practice-exercise">
+            <h3>🪄 8. अभ्यास (Practice Exercise)</h3>
+            <p>नीचे कुछ अभ्यास हैं — तुम इन्हें ChatGPT में टाइप करके देखो 👇</p>
+            <ol>
+                <li>“तुम एक जीवन-प्रेरक हो। मुझे सकारात्मक सोच विकसित करने के 5 तरीके बताओ।”</li>
+                <li>“एक 10 लाइन की कहानी लिखो जिसमें कछुआ और खरगोश हों।”</li>
+                <li>“AI क्या है, इसे ऐसे समझाओ जैसे मैं 10 साल का बच्चा हूँ।”</li>
+            </ol>
+            <p>➡️ जब तुम ये कर लोगे, तो तुम्हें अपने आप महसूस होगा कि Prompt के छोटे बदलाव से परिणाम कितना बदलता है।</p>
+        </section>
+
+        <div class="note">
+            क्या मैं अब तुम्हारे लिए<br>
+            📗 अध्याय 2: “अच्छा Prompt कैसे बनाया जाए (Step-by-Step)”<br>
+            समझाना शुरू करूँ?<br>
+            अगर हाँ, तो बस “next” लिख दो।
+        </div>
+
+        <!-- You can add more sections here following the same structure -->
+        <!--
+        <section id="new-section-id">
+            <h3>🌟 नया अनुभाग शीर्षक</h3>
+            <p>यहाँ आपके नए अनुभाग की सामग्री होगी।</p>
+        </section>
+        -->
+    </div>
+</body>
+</html>

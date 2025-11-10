@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering: एक ज़रूरी कौशल</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue */
+            --secondary-color: #3498db; /* Bright Blue */
+            --accent-color: #e74c3c; /* Red */
+            --text-color: #333;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        h2::before {
+            content: '🔹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 1.2em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: var(--accent-color);
+            margin-top: 1.8em;
+        }
+
+        p {
+            margin-bottom: 1em;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        blockquote {
+            background-color: #ecf0f1; /* Light Gray */
+            border-left: 5px solid var(--secondary-color);
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            font-style: italic;
+            color: var(--primary-color);
+            border-radius: 5px;
+            font-size: 1.15em;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5em;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+        }
+
+        ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+        }
+        
+        strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .highlight {
+            background-color: #ffedcc; /* Light Orange */
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .example-box {
+            background-color: #e8f5e9; /* Light Green */
+            border-left: 4px solid #4CAF50;
+            padding: 1.2em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1em;
+            color: #388e3c;
+        }
+
+        .note {
+            background-color: #fce4ec; /* Light Pink */
+            border-left: 4px solid #e91e63;
+            padding: 1em;
+            margin-top: 2em;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ad1457;
+            font-size: 1.05em;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+                padding-left: 15px;
+            }
+            h2::before {
+                font-size: 1em;
+            }
+            p, ul li, blockquote, .example-box {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            p, ul li, blockquote, .example-box {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prompt Engineering: आज के AI दौर का एक ज़रूरी कौशल</h1>
+
+        <p>Prompt Engineering आज के AI (खासकर ChatGPT जैसे मॉडल्स) के दौर में एक बहुत ही ज़रूरी और तेज़ी से बढ़ता हुआ कौशल है।</p>
+        <p>आइए इसे सरल भाषा में समझते हैं 👇</p>
+
+        <!-- Article Section 1 -->
+        <section id="prompt-engineering-meaning">
+            <h2>Prompt Engineering का मतलब</h2>
+            <p>Prompt Engineering का मतलब होता है —</p>
+            <blockquote>
+                “AI मॉडल (जैसे ChatGPT, Claude, Gemini आदि) से सही और उपयोगी जवाब पाने के लिए सटीक, स्पष्ट और रणनीतिक तरीके से प्रश्न या निर्देश (Prompt) तैयार करना।”
+            </blockquote>
+            <p>यानि, Prompt Engineering वह <span class="highlight">कला और विज्ञान</span> है जिससे हम AI से वही परिणाम प्राप्त करते हैं जो हम चाहते हैं।</p>
+        </section>
+
+        <!-- Article Section 2 -->
+        <section id="what-is-prompt">
+            <h2>Prompt क्या होता है?</h2>
+            <p>👉 “Prompt” वह टेक्स्ट या निर्देश होता है जो आप AI को देते हैं।</p>
+            <p>उदाहरण:</p>
+            <div class="example-box">
+                ❌ साधारण Prompt: “एक ब्लॉग लिखो।”<br>
+                ✅ अच्छा Prompt: “500 शब्दों का ब्लॉग लिखो जिसमें SEO keywords हों, टोन प्रेरणादायक हो और हेडिंग्स Markdown में हों।”
+            </div>
+            <p>दूसरे Prompt ने ज़्यादा स्पष्ट रूप से बताया कि क्या, कैसे और किस शैली में चाहिए — यही Prompt Engineering का कमाल है।</p>
+        </section>
+
+        <!-- Article Section 3 -->
+        <section id="why-prompt-engineering">
+            <h2>Prompt Engineering क्यों ज़रूरी है</h2>
+            <ul>
+                <li>बेहतर परिणाम पाने के लिए</li>
+                <li>समय बचाने के लिए</li>
+                <li>AI से रचनात्मक और सटीक आउटपुट प्राप्त करने के लिए</li>
+                <li>Automation, content creation, coding, marketing, research जैसे कार्यों में productivity बढ़ाने के लिए</li>
+            </ul>
+        </section>
+
+        <!-- Article Section 4 -->
+        <section id="principles-of-prompt-engineering">
+            <h2>Prompt Engineering के मुख्य सिद्धांत</h2>
+            <ul>
+                <li><strong>स्पष्टता (Clarity)</strong> – क्या चाहिए, यह साफ़ बताएं।</li>
+                <li><strong>संदर्भ (Context)</strong> – बैकग्राउंड जानकारी दें।</li>
+                <li><strong>भूमिका (Role)</strong> – AI को बताएं कि वह कौन है (जैसे “तुम एक प्रोफेशनल कंटेंट राइटर हो”)।</li>
+                <li><strong>फॉर्मेट (Format)</strong> – आउटपुट का फॉर्मेट बताएं (जैसे “HTML कोड में दो”)।</li>
+                <li><strong>उदाहरण (Examples)</strong> – सही उदाहरण देकर दिशा दिखाएं।</li>
+            </ul>
+        </section>
+
+        <!-- Article Section 5 -->
+        <section id="prompt-engineering-example">
+            <h2>Prompt Engineering का एक उदाहरण</h2>
+            <p>Prompt:</p>
+            <div class="example-box">
+                "तुम एक अनुभवी डिजिटल मार्केटर हो।<br>
+                मेरे ब्लॉग के लिए 10 SEO-optimized शीर्षक सुझाओ जो ‘AI tools for students’ विषय पर हों।<br>
+                प्रत्येक शीर्षक 60 characters से कम हो और आकर्षक हों।"
+            </div>
+            <p>➡️ यह एक अच्छा Prompt है क्योंकि इसमें:</p>
+            <ul>
+                <li>भूमिका (Role) है</li>
+                <li>स्पष्ट कार्य (Task) है</li>
+                <li>विषय (Topic) है</li>
+                <li>सीमा (Limitations) हैं</li>
+            </ul>
+        </section>
+
+        <!-- Article Section 6 -->
+        <section id="where-to-use-prompt-engineering">
+            <h2>Prompt Engineering कहाँ उपयोग होती है</h2>
+            <ul>
+                <li>ChatGPT और अन्य LLMs (जैसे Claude, Gemini)</li>
+                <li>Midjourney, DALL·E जैसे AI art tools</li>
+                <li>Copilot या Code Interpreter जैसे AI coding tools</li>
+                <li>Automation workflows (जैसे Zapier, Notion AI, etc.)</li>
+            </ul>
+        </section>
+
+        <div class="note">
+            अगर चाहो तो मैं तुम्हें “Prompt Engineering सीखने की Step-by-Step Guide (हिंदी में)” बना दूँ —
+            जिसमें उदाहरण, टेम्पलेट और प्रैक्टिकल टिप्स हों।
+            क्या तुम चाहते हो कि मैं वो तैयार कर दूँ?
+        </div>
+
+        <!-- You can add more sections here following the same structure -->
+        <!--
+        <section id="new-section-title">
+            <h2>नया शीर्षक</h2>
+            <p>यहाँ आपके नए लेख की सामग्री होगी।</p>
+            <ul>
+                <li>नए बिंदु</li>
+                <li>और जानकारी</li>
+            </ul>
+        </section>
+        -->
+
+    </div>
+</body>
+</html>

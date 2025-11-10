@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering: Step-by-Step Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue */
+            --secondary-color: #3498db; /* Bright Blue */
+            --accent-color: #e74c3c; /* Red */
+            --text-color: #333;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --step-color: #9b59b6; /* Purple for steps */
+            --example-bg: #ecf0f1;
+            --code-bg: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--step-color); /* Purple for steps */
+            border-bottom: 3px solid var(--step-color);
+            padding-bottom: 10px;
+            position: relative;
+            padding-left: 40px;
+            margin-top: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        h2::before {
+            content: '🩵'; /* Heart icon */
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            margin-top: 2em;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 8px;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            color: var(--accent-color);
+            margin-top: 1.5em;
+        }
+
+        p {
+            margin-bottom: 1em;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        blockquote {
+            background-color: var(--example-bg); /* Light Gray */
+            border-left: 5px solid var(--secondary-color);
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            font-style: italic;
+            color: var(--primary-color);
+            border-radius: 5px;
+            font-size: 1.15em;
+            position: relative;
+        }
+        blockquote::before {
+            content: '✨';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5em;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+        }
+
+        ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            top: 0.1em;
+        }
+        
+        strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .highlight {
+            background-color: #ffedcc; /* Light Orange */
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .example-code-box {
+            background-color: var(--code-bg); /* Light Gray for code */
+            border-left: 4px solid #4CAF50;
+            padding: 1.2em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1em;
+            color: #388e3c;
+            overflow-x: auto; /* For wider code on small screens */
+        }
+
+        .note {
+            background-color: #fce4ec; /* Light Pink */
+            border-left: 4px solid #e91e63;
+            padding: 1em;
+            margin-top: 2em;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ad1457;
+            font-size: 1.05em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 1em;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+                padding-left: 30px;
+            }
+            h2::before {
+                font-size: 1.2em;
+            }
+            p, ul li, blockquote, .example-code-box, table {
+                font-size: 1em;
+            }
+            blockquote::before {
+                left: -10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            p, ul li, blockquote, .example-code-box, table {
+                font-size: 0.95em;
+            }
+            table th, table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Prompt Engineering Step-by-Step Guide (हिंदी में) 📘</h1>
+
+        <!-- Step 1 -->
+        <section id="step-1">
+            <h2>Step 1: समझें कि Prompt क्या होता है</h2>
+            <p>👉 Prompt वो टेक्स्ट, प्रश्न या निर्देश होता है जो आप AI को देते हैं ताकि वह वैसा ही उत्तर दे जैसा आप चाहते हैं। यह सवाल पूछने की कला है।</p>
+            <p>उदाहरण:</p>
+            <div class="example-code-box">
+                ❌ “ब्लॉग लिखो।”<br><br>
+                ✅ “500 शब्दों का प्रेरणादायक ब्लॉग लिखो जिसका विषय ‘सफलता का रहस्य’ हो और उसमें 3 हेडिंग्स और 1 निष्कर्ष शामिल हो।”
+            </div>
+            <blockquote>
+                सही Prompt में <span class="highlight">स्पष्टता + दिशा + फॉर्मेट</span> होती है।
+            </blockquote>
+        </section>
+
+        <!-- Step 2 -->
+        <section id="step-2">
+            <h2>Step 2: एक अच्छा Prompt कैसे बनता है</h2>
+            <p>एक Powerful Prompt में आमतौर पर 5 चीज़ें होती हैं 👇</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>घटक</th>
+                        <th>विवरण</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🎭 <strong>Role (भूमिका)</strong></td>
+                        <td>AI को बताएं कि वह कौन है — जैसे "तुम एक शिक्षक हो" या "तुम एक कोडर हो"</td>
+                    </tr>
+                    <tr>
+                        <td>🎯 <strong>Task (कार्य)</strong></td>
+                        <td>क्या करवाना है — “ब्लॉग लिखो”, “कोड बनाओ”, “डिज़ाइन समझाओ”</td>
+                    </tr>
+                    <tr>
+                        <td>🧱 <strong>Context (संदर्भ)</strong></td>
+                        <td>बैकग्राउंड जानकारी दो ताकि AI समझ सके कि विषय क्या है</td>
+                    </tr>
+                    <tr>
+                        <td>🗂️ <strong>Format (रूप)</strong></td>
+                        <td>आउटपुट का फॉर्मेट बताओ — “HTML में दो”, “सूची बनाओ”, “टेबल में दो”</td>
+                    </tr>
+                    <tr>
+                        <td>🪄 <strong>Examples (उदाहरण)</strong></td>
+                        <td>सही दिशा दिखाने के लिए एक छोटा उदाहरण शामिल करें</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Step 3 -->
+        <section id="step-3">
+            <h2>Step 3: Prompt Structure Template</h2>
+            <p>आप हमेशा इस बेसिक ढाँचे का उपयोग कर सकते हैं 👇</p>
+            <div class="example-code-box">
+                तुम एक [Role] हो।<br>
+                तुम्हारा काम है [Task] करना।<br>
+                यहाँ कुछ संदर्भ हैं: [Context]।<br>
+                कृपया आउटपुट को [Format] में दो।<br>
+                उदाहरण के लिए: [Example]।
+            </div>
+            <h4>उदाहरण:</h4>
+            <div class="example-code-box">
+                तुम एक SEO विशेषज्ञ हो।<br>
+                मेरा कार्य है “AI tools for students” विषय पर ब्लॉग पोस्ट लिखना।<br>
+                ब्लॉग 600 शब्दों का हो, सरल हिंदी में हो, और SEO-friendly हेडिंग्स हों।<br>
+                आउटपुट को Markdown फॉर्मेट में दो।
+            </div>
+        </section>
+
+        <!-- Step 4 -->
+        <section id="step-4">
+            <h2>Step 4: Prompt Engineering में सुधार कैसे करें</h2>
+            <ul>
+                <li>एक ही Prompt बार-बार सुधारो — छोटे बदलाव करके देखो कि आउटपुट कैसे बदलता है।</li>
+                <li>जितना स्पष्ट, उतना बेहतर।</li>
+                <li>AI को सीमाएँ दो (जैसे शब्द सीमा, टोन, भाषा)।</li>
+                <li>Follow-up Prompt दो — “इसे और छोटा करो”, “थोड़ा मज़ेदार बनाओ” आदि।</li>
+                <li>Chain of Prompts बनाओ — बड़े काम को छोटे-छोटे Prompts में बाँटो।</li>
+            </ul>
+        </section>
+
+        <!-- Step 5 -->
+        <section id="step-5">
+            <h2>Step 5: Prompt Engineering के उपयोग के क्षेत्र</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>क्षेत्र</th>
+                        <th>उपयोग</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>✍️ Content Writing</td>
+                        <td>ब्लॉग, सोशल मीडिया पोस्ट, विज्ञापन कॉपी</td>
+                    </tr>
+                    <tr>
+                        <td>👨‍💻 Coding</td>
+                        <td>कोड जनरेट करना या Debug करना</td>
+                    </tr>
+                    <tr>
+                        <td>🎨 AI Art</td>
+                        <td>Midjourney/DALL·E Prompts बनाना</td>
+                    </tr>
+                    <tr>
+                        <td>🧾 Research</td>
+                        <td>रिपोर्ट, सारांश, विश्लेषण</td>
+                    </tr>
+                    <tr>
+                        <td>🗂️ Education</td>
+                        <td>नोट्स, प्रश्न-पत्र, सारांश बनाना</td>
+                    </tr>
+                    <tr>
+                        <td>💬 Customer Support</td>
+                        <td>Chatbots के लिए सटीक उत्तर तैयार करना</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Step 6 -->
+        <section id="step-6">
+            <h2>Step 6: कुछ Powerful Prompt Examples</h2>
+            <h3>1. Content Writing Prompt</h3>
+            <div class="example-code-box">
+                "तुम एक प्रोफेशनल हिंदी कंटेंट राइटर हो।<br>
+                ‘स्वस्थ जीवनशैली के 5 रहस्य’ विषय पर 600 शब्दों का ब्लॉग लिखो।<br>
+                इसमें हेडिंग्स, बुलेट पॉइंट्स और निष्कर्ष शामिल हों।<br>
+                टोन सरल और प्रेरणादायक हो।"
+            </div>
+            <h3>2. Coding Prompt</h3>
+            <div class="example-code-box">
+                "तुम एक अनुभवी वेब डेवलपर हो।<br>
+                HTML और CSS में एक सुंदर कार्ड लेआउट बनाओ जिसमें तीन कार्ड हों और hover effect हो।"
+            </div>
+            <h3>3. Teaching Prompt</h3>
+            <div class="example-code-box">
+                "तुम एक गणित शिक्षक हो।<br>
+                ‘पाइथागोरस प्रमेय’ को 12 साल के बच्चे के लिए कहानी के रूप में समझाओ।"
+            </div>
+        </section>
+
+        <!-- Step 7 -->
+        <section id="step-7">
+            <h2>Step 7: अभ्यास (Practice)</h2>
+            <ul>
+                <li>रोज़ 5 अलग-अलग प्रकार के Prompts बनाओ।</li>
+                <li>हर बार सोचो कि क्या जोड़ने से आउटपुट और सटीक होगा।</li>
+                <li>ChatGPT या Gemini में एक ही Prompt बदलकर परिणामों की तुलना करो।</li>
+            </ul>
+        </section>
+
+        <!-- Step 8 -->
+        <section id="step-8">
+            <h2>Step 8: अगले स्तर पर जाओ (Advanced Prompting)</h2>
+            <p>जब बेसिक Prompts में महारत आ जाए, तब सीखो:</p>
+            <ul>
+                <li><strong>Few-shot prompting</strong> – AI को उदाहरण देकर सिखाना।</li>
+                <li><strong>Chain-of-thought prompting</strong> – AI से चरण-दर-चरण सोचने को कहना।</li>
+                <li><strong>Role-based prompt chains</strong> – जैसे Writer → Editor → SEO Expert → Publisher की सीरीज़ बनाना।</li>
+            </ul>
+        </section>
+
+        <div class="note">
+            अगर तुम चाहो तो मैं इसका<br>
+            🎓 “PDF Guide + Practice Workbook (हिंदी में)”<br>
+            भी बना सकता हूँ — ताकि तुम इसे ऑफलाइन पढ़कर अभ्यास कर सको।<br>
+            क्या मैं वो बना दूँ?
+        </div>
+
+        <!-- Add more sections here if needed -->
+        <!--
+        <section id="new-step">
+            <h2>Step X: नया चरण शीर्षक</h2>
+            <p>इस चरण की विस्तृत जानकारी।</p>
+            <ul>
+                <li>बिंदु 1</li>
+                <li>बिंदु 2</li>
+            </ul>
+        </section>
+        -->
+    </div>
+</body>
+</html>
